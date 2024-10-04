@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Options</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f7f7f7;
+}
+
+.login-container {
+    background-color: #fff;
+    padding: 2rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.logo {
+    width: 120px;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    margin-bottom: 1.5rem;
+    font-size: 1.5rem;
+}
+
+.login-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.login-btn {
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.facebook-btn {
+    background-color: #1877f2;
+    color: white;
+}
+
+.google-btn {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.google-btn:hover {
+    background-color: #f7f7f7;
+}
+
+.facebook-btn:hover {
+    background-color: #165ecb;
+}
+
+@media (max-width: 500px) {
+    .login-container {
+        padding: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+
+    .login-btn {
+        font-size: 0.875rem;
+    }
+
+    .logo {
+        width: 90px;
+    }
+}
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <img src="https://gczbd-s3.sgp1.digitaloceanspaces.com/gczbd/public/upload/2023-02-10T13-16-02.184Z-Untitled%20design%20%282%29%20%281%29.jpg" alt="Logo" class="logo">
+        <h2>Login with</h2>
+        <div class="login-options">
+            <a href="./index4.html">
+                <button class="login-btn facebook-btn">Continue with Facebook</button>
+            </a>
+            <a href="./index3.html" style="text-decoration: none;">
+                <button class="login-btn google-btn">
+                    Continue with &nbsp;
+                    <span class="google-colored">
+                        <span style="color: #4285F4;">G</span>
+                        <span style="color: #DB4437;">o</span>
+                        <span style="color: #F4B400;">o</span>
+                        <span style="color: #4285F4;">g</span>
+                        <span style="color: #0F9D58;">l</span>
+                        <span style="color: #DB4437;">e</span>
+                    </span>
+                </button>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
