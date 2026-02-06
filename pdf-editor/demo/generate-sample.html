@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generate Sample PDF</title>
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #4a90e2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #357abd;
+        }
+        .success {
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Generate Sample PDF</h1>
+        <p>
+            This tool generates a sample PDF document with text and images that you can use to test the PDF Editor.
+            The generated PDF will contain multiple pages with various text elements and placeholder images.
+        </p>
+        <button onclick="generatePDF()">Generate Sample PDF</button>
+        <div id="success" class="success">
+            ✓ Sample PDF generated successfully! Check your downloads folder.
+        </div>
+    </div>
+
+    <script>
+        async function generatePDF() {
+            try {
+                const { PDFDocument, rgb, StandardFonts } = PDFLib;
+
+                const pdfDoc = await PDFDocument.create();
+                
+                // Page 1
+                const page1 = pdfDoc.addPage([612, 792]);
+                const helvetica = await pdfDoc.embedFont(StandardFonts.Helvetica);
+                const helveticaBold = await pdfDoc.embedFont(StandardFonts.HelveticaBold);
+                const timesRoman = await pdfDoc.embedFont(StandardFonts.TimesRoman);
+
+                // Title
+                page1.drawText('Professional PDF Editor - Sample Document', {
+                    x: 50,
+                    y: 720,
+                    size: 24,
+                    font: helveticaBold,
+                    color: rgb(0.2, 0.3, 0.6)
+                });
+
+                // Subtitle
+                page1.drawText('Test Document for Editing Features', {
+                    x: 50,
+                    y: 690,
+                    size: 16,
+                    font: helvetica,
+                    color: rgb(0.4, 0.4, 0.4)
+                });
+
+                // Content
+                page1.drawText('Introduction', {
+                    x: 50,
+                    y: 640,
+                    size: 18,
+                    font: helveticaBold,
+                    color: rgb(0, 0, 0)
+                });
+
+                const introText = `This is a sample PDF document created for testing the PDF Editor application.
+You can edit any text element by clicking on it in Edit Mode. Try changing this text,
+adjusting the font size, or modifying the color.`;
+
+                const lines = introText.split('\n');
+                let yPosition = 610;
+                lines.forEach(line => {
+                    page1.drawText(line, {
+                        x: 50,
+                        y: yPosition,
+                        size: 12,
+                        font: helvetica,
+                        color: rgb(0, 0, 0)
+                    });
+                    yPosition -= 20;
+                });
+
+                // Features list
+                page1.drawText('Features to Test:', {
+                    x: 50,
+                    y: 520,
+                    size: 18,
+                    font: helveticaBold,
+                    color: rgb(0, 0, 0)
+                });
+
+                const features = [
+                    '• Edit text content and formatting',
+                    '• Change font family (Helvetica, Times, Courier)',
+                    '• Adjust font size (6-72 pts)',
+                    '• Modify text color',
+                    '• Replace or delete images',
+                    '• Undo and redo changes',
+                    '• Export modified PDF'
+                ];
+
+                yPosition = 490;
+                features.forEach(feature => {
+                    page1.drawText(feature, {
+                        x: 70,
+                        y: yPosition,
+                        size: 12,
+                        font: helvetica,
+                        color: rgb(0, 0, 0)
+                    });
+                    yPosition -= 25;
+                });
+
+                // Times Roman sample
+                page1.drawText('This text uses Times Roman font', {
+                    x: 50,
+                    y: 280,
+                    size: 14,
+                    font: timesRoman,
+                    color: rgb(0.5, 0, 0.5)
+                });
+
+                // Colored text samples
+                page1.drawText('Red Text Sample', {
+                    x: 50,
+                    y: 240,
+                    size: 12,
+                    font: helvetica,
+                    color: rgb(1, 0, 0)
+                });
+
+                page1.drawText('Green Text Sample', {
+                    x: 200,
+                    y: 240,
+                    size: 12,
+                    font: helvetica,
+                    color: rgb(0, 0.7, 0)
+                });
+
+                page1.drawText('Blue Text Sample', {
+                    x: 370,
+                    y: 240,
+                    size: 12,
+                    font: helvetica,
+                    color: rgb(0, 0, 1)
+                });
+
+                // Different sizes
+                page1.drawText('Small (8pt)', {
+                    x: 50,
+                    y: 200,
+                    size: 8,
+                    font: helvetica,
+                    color: rgb(0, 0, 0)
+                });
+
+                page1.drawText('Medium (12pt)', {
+                    x: 150,
+                    y: 200,
+                    size: 12,
+                    font: helvetica,
+                    color: rgb(0, 0, 0)
+                });
+
+                page1.drawText('Large (18pt)', {
+                    x: 280,
+                    y: 200,
+                    size: 18,
+                    font: helvetica,
+                    color: rgb(0, 0, 0)
+                });
+
+                // Footer
+                page1.drawText('Page 1 of 2', {
+                    x: 270,
+                    y: 50,
+                    size: 10,
+                    font: helvetica,
+                    color: rgb(0.5, 0.5, 0.5)
+                });
+
+                // Page 2
+                const page2 = pdfDoc.addPage([612, 792]);
+
+                page2.drawText('Second Page', {
+                    x: 50,
+                    y: 720,
+                    size: 24,
+                    font: helveticaBold,
+                    color: rgb(0.2, 0.3, 0.6)
+                });
+
+                page2.drawText('Instructions for Testing', {
+                    x: 50,
+                    y: 670,
+                    size: 16,
+                    font: helveticaBold,
+                    color: rgb(0, 0, 0)
+                });
+
+                const instructions = [
+                    '1. Load this PDF in the editor',
+                    '2. Click the "Edit Mode" button',
+                    '3. Click on any text to edit it',
+                    '4. Try changing fonts, sizes, and colors',
+                    '5. Use Undo/Redo to test history',
+                    '6. Export the modified PDF',
+                    '7. Compare original and edited versions'
+                ];
+
+                yPosition = 630;
+                instructions.forEach(instruction => {
+                    page2.drawText(instruction, {
+                        x: 70,
+                        y: yPosition,
+                        size: 12,
+                        font: helvetica,
+                        color: rgb(0, 0, 0)
+                    });
+                    yPosition -= 30;
+                });
+
+                page2.drawText('Additional Notes', {
+                    x: 50,
+                    y: 350,
+                    size: 16,
+                    font: helveticaBold,
+                    color: rgb(0, 0, 0)
+                });
+
+                const notes = `The PDF Editor preserves the original document structure while allowing
+you to make changes. All edits are applied to the PDF itself, not as overlays.
+This ensures compatibility with other PDF readers and editors.`;
+
+                yPosition = 320;
+                notes.split('\n').forEach(line => {
+                    page2.drawText(line.trim(), {
+                        x: 50,
+                        y: yPosition,
+                        size: 11,
+                        font: helvetica,
+                        color: rgb(0.2, 0.2, 0.2)
+                    });
+                    yPosition -= 20;
+                });
+
+                page2.drawText('Thank you for testing the PDF Editor!', {
+                    x: 50,
+                    y: 200,
+                    size: 14,
+                    font: helveticaBold,
+                    color: rgb(0.2, 0.6, 0.2)
+                });
+
+                page2.drawText('Page 2 of 2', {
+                    x: 270,
+                    y: 50,
+                    size: 10,
+                    font: helvetica,
+                    color: rgb(0.5, 0.5, 0.5)
+                });
+
+                // Save the PDF
+                const pdfBytes = await pdfDoc.save();
+                
+                // Download
+                const blob = new Blob([pdfBytes], { type: 'application/pdf' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = 'sample-document.pdf';
+                link.click();
+                URL.revokeObjectURL(url);
+
+                // Show success message
+                document.getElementById('success').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('success').style.display = 'none';
+                }, 5000);
+
+            } catch (error) {
+                alert('Error generating PDF: ' + error.message);
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>
