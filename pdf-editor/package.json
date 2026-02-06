@@ -1,0 +1,46 @@
+{
+  "name": "professional-pdf-editor",
+  "version": "1.0.0",
+  "description": "A senior-level, browser-based PDF editor built with vanilla JavaScript, PDF.js, and pdf-lib",
+  "main": "js/main.js",
+  "type": "module",
+  "scripts": {
+    "start": "npx http-server -p 8000 -c-1",
+    "dev": "npx http-server -p 8000 -c-1 -o",
+    "serve": "python -m http.server 8000"
+  },
+  "keywords": [
+    "pdf",
+    "editor",
+    "pdf.js",
+    "pdf-lib",
+    "browser",
+    "javascript",
+    "client-side",
+    "text-editing",
+    "image-editing",
+    "document-editing"
+  ],
+  "author": "PDF Editor Team",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/pdf-editor.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/pdf-editor/issues"
+  },
+  "homepage": "https://github.com/yourusername/pdf-editor#readme",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "browserslist": [
+    "Chrome >= 90",
+    "Firefox >= 88",
+    "Safari >= 14",
+    "Edge >= 90"
+  ]
+}

@@ -1,0 +1,251 @@
+/* PDF Viewer Container */
+.viewer-container {
+    flex: 1;
+    overflow: auto;
+    background-color: var(--bg-primary);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 20px;
+}
+
+.viewer-container::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.viewer-container::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+}
+
+.viewer-container::-webkit-scrollbar-thumb {
+    background: var(--border-color);
+    border-radius: 6px;
+}
+
+.viewer-container::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Text Layer */
+.text-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.text-element {
+    position: absolute;
+    background-color: transparent;
+    border: 2px solid transparent;
+    cursor: pointer;
+    pointer-events: auto;
+    transition: all 0.2s ease;
+    white-space: pre;
+    overflow: hidden;
+}
+
+.text-layer.edit-mode .text-element:hover {
+    background-color: rgba(74, 144, 226, 0.1);
+    border-color: var(--accent-color);
+}
+
+.text-layer.edit-mode .text-element:active {
+    background-color: rgba(74, 144, 226, 0.2);
+}
+
+.text-layer:not(.edit-mode) .text-element {
+    pointer-events: none;
+}
+
+.text-element-content {
+    pointer-events: none;
+    user-select: none;
+}
+
+/* Image Layer */
+.image-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+}
+
+.image-element {
+    position: absolute;
+    cursor: pointer;
+    pointer-events: auto;
+    border: 2px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.image-element img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: contain;
+}
+
+.image-layer.edit-mode .image-element:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 12px rgba(74, 144, 226, 0.3);
+}
+
+.image-layer.edit-mode .image-element:active {
+    transform: scale(0.98);
+}
+
+.image-layer:not(.edit-mode) .image-element {
+    pointer-events: none;
+}
+
+/* Edit Mode Indicator */
+.pdf-canvas-wrapper.edit-mode #pdf-canvas {
+    cursor: crosshair;
+}
+
+/* Highlight Effect */
+@keyframes highlight {
+    0%, 100% {
+        background-color: transparent;
+    }
+    50% {
+        background-color: rgba(74, 144, 226, 0.3);
+    }
+}
+
+.text-element.highlight {
+    animation: highlight 1s ease-in-out;
+}
+
+.image-element.highlight {
+    animation: highlight 1s ease-in-out;
+}
+
+/* Selection Styles */
+.text-element.selected {
+    background-color: rgba(74, 144, 226, 0.2);
+    border-color: var(--accent-color);
+    box-shadow: 0 0 8px rgba(74, 144, 226, 0.4);
+}
+
+.image-element.selected {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 12px rgba(74, 144, 226, 0.5);
+}
+
+/* Deleted Elements */
+.text-element.deleted,
+.image-element.deleted {
+    opacity: 0.3;
+    pointer-events: none;
+    text-decoration: line-through;
+}
+
+/* Edit Indicator Badge */
+.element-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    pointer-events: none;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}
+
+.text-element.modified .element-badge {
+    background-color: var(--warning-color);
+}
+
+.image-element.modified .element-badge {
+    background-color: var(--warning-color);
+}
+
+/* Zoom Scale Container */
+.pdf-canvas-wrapper {
+    transition: transform 0.3s ease;
+    transform-origin: top center;
+}
+
+/* Page Transition */
+.pdf-canvas-wrapper.page-transition {
+    animation: pageTransition 0.3s ease;
+}
+
+@keyframes pageTransition {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading State */
+.viewer-container.loading {
+    position: relative;
+}
+
+.viewer-container.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Error State */
+.error-message {
+    padding: 20px;
+    background-color: var(--bg-secondary);
+    border-radius: 8px;
+    border-left: 4px solid var(--danger-color);
+    box-shadow: 0 2px 12px var(--shadow-color);
+}
+
+.error-message h3 {
+    color: var(--danger-color);
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.error-message p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .viewer-container {
+        padding: 12px;
+    }
+
+    .text-element {
+        border-width: 1px;
+    }
+
+    .image-element {
+        border-width: 1px;
+    }
+}
